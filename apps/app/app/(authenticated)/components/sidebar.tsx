@@ -7,7 +7,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@repo/design-system/components/ui/collapsible';
-import {
+import { 
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -34,21 +34,16 @@ import {
 } from '@repo/design-system/components/ui/sidebar';
 import { cn } from '@repo/design-system/lib/utils';
 import {
-  AnchorIcon,
-  BookOpenIcon,
-  BotIcon,
+  BarChart3Icon,
+  BoxIcon,
   ChevronRightIcon,
-  FolderIcon,
-  FrameIcon,
-  LifeBuoyIcon,
-  MapIcon,
-  MoreHorizontalIcon,
-  PieChartIcon,
-  SendIcon,
-  Settings2Icon,
-  ShareIcon,
-  SquareTerminalIcon,
-  Trash2Icon,
+  CreditCardIcon,
+  LayoutDashboardIcon,
+  PackageIcon,
+  ShoppingCartIcon,
+  TagIcon,
+  TruckIcon,
+  UsersIcon,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 
@@ -57,135 +52,76 @@ type GlobalSidebarProperties = {
 };
 
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminalIcon,
+      title: 'Dashboard',
+      url: '/',
+      icon: LayoutDashboardIcon,
       isActive: true,
+    },
+    {
+      title: 'Products',
+      url: '/products',
+      icon: BoxIcon,
       items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
+        { title: 'All Products', url: '/products' },
+        { title: 'Add New', url: '/products/new' },
+        { title: 'Categories', url: '/products/categories' },
       ],
     },
     {
-      title: 'Models',
-      url: '#',
-      icon: BotIcon,
+      title: 'Orders',
+      url: '/orders',
+      icon: ShoppingCartIcon,
       items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
+        { title: 'All Orders', url: '/orders' },
+        { title: 'Abandoned Carts', url: '/orders/abandoned' },
       ],
     },
     {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpenIcon,
+      title: 'Customers',
+      url: '/customers',
+      icon: UsersIcon,
+    },
+    {
+      title: 'Analytics',
+      url: '/analytics',
+      icon: BarChart3Icon,
       items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
+        { title: 'Sales', url: '/analytics/sales' },
+        { title: 'Traffic', url: '/analytics/traffic' },
       ],
     },
     {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2Icon,
+      title: 'Marketing',
+      url: '/marketing',
+      icon: TagIcon,
       items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
-        },
+        { title: 'Discounts', url: '/marketing/discounts' },
+        { title: 'Campaigns', url: '/marketing/campaigns' },
       ],
     },
   ],
   navSecondary: [
     {
-      title: 'Webhooks',
-      url: '/webhooks',
-      icon: AnchorIcon,
+      title: 'Inventory',
+      url: '/inventory',
+      icon: PackageIcon,
     },
     {
-      title: 'Support',
-      url: '#',
-      icon: LifeBuoyIcon,
+      title: 'Shipping',
+      url: '/shipping',
+      icon: TruckIcon,
     },
     {
-      title: 'Feedback',
-      url: '#',
-      icon: SendIcon,
-    },
-  ],
-  projects: [
-    {
-      name: 'Design Engineering',
-      url: '#',
-      icon: FrameIcon,
-    },
-    {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChartIcon,
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: MapIcon,
+      title: 'Payments',
+      url: '/payments',
+      icon: CreditCardIcon,
     },
   ],
 };
 
-export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
+export default function GlobalSidebar({ children }: GlobalSidebarProperties) {
   const sidebar = useSidebar();
 
   return (
@@ -202,7 +138,7 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
               >
                 <OrganizationSwitcher
                   hidePersonal
-                  afterSelectOrganizationUrl="/"
+                  afterSelectOrganizationUrl="/dashboard"
                 />
               </div>
             </SidebarMenuItem>
@@ -210,7 +146,7 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+            <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
             <SidebarMenu>
               {data.navMain.map((item) => (
                 <Collapsible
@@ -255,54 +191,6 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
               ))}
             </SidebarMenu>
           </SidebarGroup>
-          <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarMenu>
-              {data.projects.map((item) => (
-                <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.name}</span>
-                    </a>
-                  </SidebarMenuButton>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <SidebarMenuAction showOnHover>
-                        <MoreHorizontalIcon />
-                        <span className="sr-only">More</span>
-                      </SidebarMenuAction>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-48"
-                      side="bottom"
-                      align="end"
-                    >
-                      <DropdownMenuItem>
-                        <FolderIcon className="text-muted-foreground" />
-                        <span>View Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <ShareIcon className="text-muted-foreground" />
-                        <span>Share Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>
-                        <Trash2Icon className="text-muted-foreground" />
-                        <span>Delete Project</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </SidebarMenuItem>
-              ))}
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <MoreHorizontalIcon />
-                  <span>More</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
           <SidebarGroup className="mt-auto">
             <SidebarGroupContent>
               <SidebarMenu>
@@ -341,4 +229,4 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
       <SidebarInset>{children}</SidebarInset>
     </>
   );
-};
+}

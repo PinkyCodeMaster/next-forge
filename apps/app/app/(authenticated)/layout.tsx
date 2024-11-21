@@ -4,7 +4,7 @@ import { showBetaFeature } from '@repo/feature-flags';
 import arcjet, { detectBot, request } from '@repo/security';
 import type { ReactNode } from 'react';
 import { PostHogIdentifier } from './components/posthog-identifier';
-import { GlobalSidebar } from './components/sidebar';
+import GlobalSidebar from './components/sidebar';
 
 type AppLayoutProperties = {
   readonly children: ReactNode;
@@ -13,8 +13,6 @@ type AppLayoutProperties = {
 const aj = arcjet.withRule(
   detectBot({
     mode: 'LIVE',
-    // Allow preview links to show OG images, but no other bots should be
-    // allowed. See https://docs.arcjet.com/bot-protection/identifying-bots
     allow: ['CATEGORY:PREVIEW'],
   })
 );
